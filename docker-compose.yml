@@ -1,0 +1,25 @@
+version: '3.7'
+
+services:
+  metabase:
+    environment:
+      - MB_DB_TYPE # use postgres
+      - MB_DB_DBNAME
+      - MB_DB_PORT
+      - MB_DB_USER
+      - MB_DB_PASS
+      - MB_DB_HOST
+    image: metabase/metabase:v0.39.3
+    ports:
+      - PORT:3000
+    volumes:
+      - metabase_db/:/metabase.db/
+
+volumes:
+  metabase_db:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: './metabase.db'
+    external: false
